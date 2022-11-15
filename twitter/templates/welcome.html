@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Twitter 
+{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+<div class="wrapper">
+    <div class="logo d-flex justify-content-center">
+        <img src="{% static '/images/twitter-bird.png' %}" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+        <p>Welcome to twitter</p>
+        <p>You are successfully logged in</p>
+    </div>
+    <button class="btn" type="submit">
+        <a class="text-white" href="signout">Signout</a></button>
+</div>
+
+{% endblock body %}

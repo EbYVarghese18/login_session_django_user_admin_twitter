@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Admin {% endblock title %}
+
+{% block body %}
+
+{% load static %}
+
+<div class="nav_bar">
+    <div class="logo">
+        <img src="{% static '/images/twitter-bird.png' %}" alt="">
+    </div>
+    <div>
+        <h1 class="pt-4">Search User Result</h1>
+    </div>
+    <div>
+        <a class="text-white" href="{% url 'adminhome' %}"><button class="btn btn-primary" type="submit">Back to admin</button></a>
+        <a class="text-white" href="{% url 'adminsignout' %}"><button class="btn btn-primary" type="submit">Signout</button></a>
+    </div>
+</div>
+
+<div class="vh-100 vw-100 admin_body mx-auto m-5">
+
+    <div class="m-4 overflow-auto">
+        <table class="table table-striped table-bordered table-hover text-center align-middle">
+            <thead>
+                <tr>
+
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Second Name</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for user in users %}
+
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock body %}

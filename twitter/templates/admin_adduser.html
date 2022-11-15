@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Adduser
+{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+
+<div class="wrapper">
+    <div class="logo d-flex justify-content-center">
+        <img src="{% static '/images/twitter-bird.png' %}" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+        Twitter
+    </div>
+    <form action="adduser" method="post" class="p-3 mt-3">
+        {% csrf_token %}
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="lastname" id="lastname" placeholder="Lastname" required>
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="username" id="username" placeholder="Username" required>
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="email" name="email" id="email" placeholder="Email ID" required>
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="password" id="pwd" placeholder="Password" required>
+        </div>
+
+        {% if messages %}
+        <div class="alert alert-danger mt-5 text-center" role="alert">
+            {% for e in messages %}
+            {{ e }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn mt-3">Add user</button>
+        <div class="text-center mt-4">
+            Back to <a href="{% url 'adminhome' %}"><b>Admin Page</b></a>
+        </div>
+        
+    </form>
+</div>
+{% endblock body %}

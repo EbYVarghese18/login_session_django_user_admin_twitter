@@ -6,7 +6,7 @@ working:
 
 1. user login:
    need to create a user to login by using the signup.
-   login will be authenticated from the database(database is postgres).
+   login will be authenticated from the database(database is postgresql).
    admin user cannot login in user login.
    session is managed.
    user can signout and login with another username.

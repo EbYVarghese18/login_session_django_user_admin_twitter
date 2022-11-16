@@ -135,7 +135,7 @@ def adduser(request):
                 return redirect('adduser')
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email Taken !')
-                return redirect('adminhome')
+                return redirect('adduser')
             else:
                 user = User.objects.create_user(
                     first_name=first_name, last_name=last_name, username=user_name, password=password, email=email)
@@ -147,9 +147,10 @@ def adduser(request):
     else:
         return redirect('adminsignin')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def deleteuser(request, username):
-    if 'usersession' in request.session:
+    if 'adminsession' in request.session:
         try:
             del request.session['usersession']
         except KeyError:
@@ -163,34 +164,41 @@ def deleteuser(request, username):
         pass
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def edituser(request, id):
-    if request.method == 'POST':
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        username = request.POST['username']
-        email = request.POST['email']
-        updateuser = User.objects.get(id=id)
-        updateuser.first_name = firstname
-        updateuser.last_name = lastname       
-        updateuser.username = username
-        updateuser.email = email
-        updateuser.save()
-        messages.success(request, "User updated successfully")
-        return redirect('adminhome')
-    else:
-        user = User.objects.get(id=id)
-        args = {
-            'users': user
+    if 'adminsession' in request.session:
+        if request.method == 'POST':
+            firstname = request.POST['firstname']
+            lastname = request.POST['lastname']
+            username = request.POST['username']
+            email = request.POST['email']
+            updateuser = User.objects.get(id=id)
+            updateuser.first_name = firstname
+            updateuser.last_name = lastname
+            updateuser.username = username
+            updateuser.email = email
+            updateuser.save()
+            messages.success(request, "User updated successfully")
+            return redirect('adminhome')
+        else:
+            user = User.objects.get(id=id)
+            args = {
+                'users': user
             }
-        return render(request, "admin_edituser.html", args)
+            return render(request, "admin_edituser.html", args)
+    else:
+        return redirect('adminsignin')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def searchuser(request):
-    username=request.GET['searchuser']
-    searchuser = User.objects.filter(username__contains=username)
-    return render(request,"admin_searchuser.html",{
-        'users':searchuser
+    if 'adminsession' in request.session:
+        username = request.GET['searchuser']
+        searchuser = User.objects.filter(username__icontains=username)
+        return render(request, "admin_searchuser.html", {
+            'users': searchuser
         })
+    else:
+        return render(request, 'adminsignin.html')
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)

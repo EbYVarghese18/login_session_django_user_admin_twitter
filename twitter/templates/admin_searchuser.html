@@ -38,6 +38,10 @@
 
                 {% for user in users %}
 
+                {% if user.is_superuser %}
+
+                {% else %}
+
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{user.first_name}}</td>
@@ -47,6 +51,8 @@
 
                 </tr>
 
+
+                {% endif %}
                 {% endfor %}
 
             </tbody>

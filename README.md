@@ -1,4 +1,4 @@
-# authentication_session_django_user-admin
+# Login_session_django_user&admin
 
 <b>A simple login webapp using django framework.</b><br>
 <br>
